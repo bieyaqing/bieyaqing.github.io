@@ -8,49 +8,29 @@
  * Copyright 2015, Codrops
  * http://www.codrops.com
  */
-'use strict';
+;(function(window) {
 
-var ORI_MAIN = (function() {
-
-	var app = {};
+	'use strict';
 
 	var support = { transitions: Modernizr.csstransitions },
-	// transition end event name
-	transEndEventNames = { 'WebkitTransition': 'webkitTransitionEnd', 'MozTransition': 'transitionend', 'OTransition': 'oTransitionEnd', 'msTransition': 'MSTransitionEnd', 'transition': 'transitionend' },
-	transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
-	onEndTransition = function( el, callback ) {
-		var onEndCallbackFn = function( ev ) {
+		// transition end event name
+		transEndEventNames = { 'WebkitTransition': 'webkitTransitionEnd', 'MozTransition': 'transitionend', 'OTransition': 'oTransitionEnd', 'msTransition': 'MSTransitionEnd', 'transition': 'transitionend' },
+		transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
+		onEndTransition = function( el, callback ) {
+			var onEndCallbackFn = function( ev ) {
+				if( support.transitions ) {
+					if( ev.target != this ) return;
+					this.removeEventListener( transEndEventName, onEndCallbackFn );
+				}
+				if( callback && typeof callback === 'function' ) { callback.call(this); }
+			};
 			if( support.transitions ) {
-				if( ev.target != this ) return;
-				this.removeEventListener( transEndEventName, onEndCallbackFn );
+				el.addEventListener( transEndEventName, onEndCallbackFn );
 			}
-			if( callback && typeof callback === 'function' ) { callback.call(this); }
-		};
-		if( support.transitions ) {
-			el.addEventListener( transEndEventName, onEndCallbackFn );
-		}
-		else {
-			onEndCallbackFn();
-		}
-	},
-	// the pages wrapper
-	stack = document.querySelector('.pages-stack'),
-	// the page elements
-	pages = [].slice.call(stack.children),
-	// total number of page elements
-	pagesTotal = pages.length,
-	// index of current page
-	current = 0,
-	// menu button
-	menuCtrl = document.querySelector('button.menu-button'),
-	// the navigation wrapper
-	nav = document.querySelector('.pages-nav'),
-	// the menu nav items
-	navItems = [].slice.call(nav.querySelectorAll('.link--page')),
-	// check if menu is open
-	isMenuOpen = false;
-
-	app.init = function() {
+			else {
+				onEndCallbackFn();
+			}
+		},
 		// the pages wrapper
 		stack = document.querySelector('.pages-stack'),
 		// the page elements
@@ -67,9 +47,11 @@ var ORI_MAIN = (function() {
 		navItems = [].slice.call(nav.querySelectorAll('.link--page')),
 		// check if menu is open
 		isMenuOpen = false;
+
+	function init() {
 		buildStack();
 		initEvents();
-	};
+	}
 
 	function buildStack() {
 		var stackPagesIdxs = getStackPagesIdxs();
@@ -234,5 +216,6 @@ var ORI_MAIN = (function() {
 		return idxs;
 	}
 
-	return app;
-})();
+	init();
+
+})(window);

@@ -1,0 +1,38 @@
+{
+	"name": "bieyaqing.github.io",
+	"version": "1.0.0",
+	"description": "Page for Bie Yaqing",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bieyaqing/bieyaqing.github.io.git"
+	},
+	"keywords": [
+		"bieyaqing"
+	],
+	"author": "Bie Yaqing",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/bieyaqing/bieyaqing.github.io/issues"
+	},
+	"homepage": "https://github.com/bieyaqing/bieyaqing.github.io#readme",
+	"dependencies": {
+		"font-awesome": "*",
+		"moment": "*",
+		"angular": "*"
+	},
+	"devDependencies": {
+		"gulp": "^3.9.1",
+		"gulp-clean": "^0.3.2",
+		"gulp-imagemin": "^3.1.1",
+		"gulp-inject": "^4.1.0",
+		"gulp-ngmin": "^0.3.0",
+		"gulp-remove-html-comments": "^1.0.1",
+		"gulp-sass": "^2.3.2",
+		"gulp-uglify": "^2.0.0",
+		"gulp-webserver": "^0.9.1"
+	}
+}

@@ -1,0 +1,14 @@
+$grey-2: #ddd;
+
+@mixin box-shadow($t, $r, $b, $l, $c) {
+	-webkit-box-shadow: $t $r $b $l $c;
+	-moz-box-shadow: $t $r $b $l $c;
+	-ms-box-shadow: $t $r $b $l $c;
+	-o-box-shadow: $t $r $b $l $c;
+	box-shadow: $t $r $b $l $c;
+}
+
+.sample-box {
+	padding: 20px;
+	@include box-shadow(0px, 0px, 1px, 1px, $grey-2);
+}

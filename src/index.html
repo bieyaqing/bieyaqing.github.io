@@ -9,41 +9,37 @@
 		<meta name="keywords" content="blueprint, template, html, css, page stack, 3d, perspective, navigation, menu" />
 		<meta name="author" content="Codrops" />
 		<link rel="shortcut icon" href="favicon.png">
-		
-		<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="/css/demo.css">
-		<link rel="stylesheet" href="/css/component.css">
-		<link rel="stylesheet" href="/css/style.css">
-		
+		<!-- inject:css -->
+		<!-- endinject -->
 	</head>
 	<body ng-app="YQHOME" ng-controller="AppCtrl">
-		
+		<!-- navigation -->
 		<nav class="pages-nav">
 			<div ng-repeat="item in param.menu" class="pages-nav__item" ng-class="item.is_sm|is_css:'pages-nav__item--small'"><a class="link link--page" ng-class="item.is_sm|is_css:'link--faded'" ng-href="#{{item.link}}" ng-bind="item.title"></a></div>
 			<div class="pages-nav__item pages-nav__item--social">
 				<a ng-repeat="item in param.sub_menu" class="link link--social link--faded" ng-href="#/{{item.link}}"><i class="fa" ng-class="item.icon"></i><span class="text-hidden" ng-bind="item.title"></span></a>
 			</div>
 		</nav>
-		
-		
+		<!-- /navigation-->
+		<!-- pages stack -->
 		<div class="pages-stack">
-			
+			<!-- page -->
 			<div class="page" id="page-home">
-				
+				<!-- Blueprint header -->
 				<header class="bp-header cf">
 					<span class="bp-header__present">Blueprint <span class="bp-tooltip bp-icon bp-icon--about" data-content="The Blueprints are a collection of basic and minimal website concepts, components, plugins and layouts with minimal style for easy adaption and usage, or simply for inspiration."></span></span>
 					<h1 class="bp-header__title">Page Stack Navigation</h1>
 					<p class="bp-header__desc">Based on Ilya Kostin's Dribbble shot <a href="https://dribbble.com/shots/2286042-Stacked-navigation">Stacked navigation</a></p>
 					<nav class="bp-nav">
 						<a class="bp-nav__item bp-icon bp-icon--prev" href="http://tympanus.net/Blueprints/ZoomSlider/" data-info="previous Blueprint"><span>Previous Blueprint</span></a>
-						
+						<!--a class="bp-nav__item bp-icon bp-icon--next" href="" data-info="next Blueprint"><span>Next Blueprint</span></a-->
 						<a class="bp-nav__item bp-icon bp-icon--drop" href="http://tympanus.net/codrops/?p=25311" data-info="back to the Codrops article"><span>back to the Codrops article</span></a>
 						<a class="bp-nav__item bp-icon bp-icon--archive" href="http://tympanus.net/codrops/category/blueprints/" data-info="Blueprints archive"><span>Go to the archive</span></a>
 					</nav>
 				</header>
 				<img class="poster" src="images/1.jpg" alt="img01" />
 			</div>
-			
+			<!-- /page -->
 			<div class="page" id="page-docu">
 				<header class="bp-header cf">
 					<h1 class="bp-header__title">Documentation</h1>
@@ -125,19 +121,9 @@
 				<img class="poster" src="images/4.jpg" alt="img04" />
 			</div>
 		</div>
-		
+		<!-- /pages-stack -->
 		<button class="menu-button"><span>Menu</span></button>
-		
-		<script src="/js/modernizr-custom.js"></script>
-		<script src="/js/classie.js"></script>
-		<script src="/js/main.js"></script>
-		<script src="/lib/moment/min/moment.min.js"></script>
-		<script src="/js/languages.js"></script>
-		<script src="/js/functions.js"></script>
-		<script src="/lib/angular/angular.min.js"></script>
-		<script src="/js/app.js"></script>
-		<script src="/js/controllers.js"></script>
-		<script src="/js/filters.js"></script>
-		
+		<!-- inject:js -->
+		<!-- endinject -->
 	</body>
 </html>
