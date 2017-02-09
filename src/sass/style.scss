@@ -84,7 +84,9 @@ $break-medium: 60em;
 		margin-top: 180px;
 		opacity: 0.1;
 		font-size: 600px;
-		@include animation(fa-spin 30s infinite linear);
+		&.run {
+			@include animation(fa-spin 30s infinite linear);
+		}
 	}
 	@media screen and (max-width: $break-medium) {
 		margin-top: 2em;

@@ -45,7 +45,7 @@ let LAN_CH = {
 	"a_xxx_geek": "axxxgeek",
 	"a_xxx_geek_desc": "三 X 极客指的是对至少三种课题有着疯狂追求的人，此网站的主人疯狂追求着技术，设计和一个。。。",
 	"yq_s_stacks": "别亚青的层叠",
-	"yq_s_stacks_desc": "基于 Ilya Kostin 的层叠导航",
+	"yq_s_stacks_desc": "基于 Ilya Kostin 的层叠导航设计",
 	// settings page
 	"settings_desc": "设置你喜欢的语言和主题。",
 	"language": "语言",

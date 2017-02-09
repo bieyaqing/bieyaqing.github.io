@@ -32,12 +32,13 @@
 .poster .cog-icon {
   margin-top: 180px;
   opacity: 0.1;
-  font-size: 600px;
-  -webkit-animation: fa-spin 30s infinite linear;
-  -moz-animation: fa-spin 30s infinite linear;
-  -ms-animation: fa-spin 30s infinite linear;
-  -o-animation: fa-spin 30s infinite linear;
-  animation: fa-spin 30s infinite linear; }
+  font-size: 600px; }
+  .poster .cog-icon.run {
+    -webkit-animation: fa-spin 30s infinite linear;
+    -moz-animation: fa-spin 30s infinite linear;
+    -ms-animation: fa-spin 30s infinite linear;
+    -o-animation: fa-spin 30s infinite linear;
+    animation: fa-spin 30s infinite linear; }
 
 @media screen and (max-width: 60em) {
   .poster {

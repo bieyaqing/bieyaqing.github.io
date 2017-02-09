@@ -1,4 +1,4 @@
-angular.module('YQHOME', ['app.controllers', 'app.filters'])
+angular.module('YQHOME', ['app.controllers', 'app.filters', 'chart.js'])
 
 .run(function($rootScope){
 	$rootScope.root = {
@@ -85,5 +85,5 @@ angular.module('YQHOME', ['app.controllers', 'app.filters'])
 })
 
 .config(function(){
-	
+
 });

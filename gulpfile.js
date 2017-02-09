@@ -27,7 +27,9 @@ gulp.task('build-lib', function() {
 		'./node_modules/font-awesome/fonts/*.otf',
 		'./node_modules/moment/min/moment.min.js',
 		'./node_modules/angular/angular.min.js',
-		'./node_modules/angular/angular.min.js.map'
+		'./node_modules/angular/angular.min.js.map',
+		'./node_modules/chart.js/dist/Chart.min.js',
+		'./node_modules/angular-chart.js/dist/angular-chart.min.js'
 	], {
 		base: './node_modules'
 	})
@@ -104,14 +106,15 @@ let INJECT_SRC = [
 	DEST_FOLDER + '/js/classie.js',
 	DEST_FOLDER + '/js/main.js',
 	DEST_FOLDER + '/lib/moment/min/moment.min.js',
+	DEST_FOLDER + '/lib/angular/angular.min.js',
+	DEST_FOLDER + '/lib/chart.js/dist/Chart.min.js',
+	DEST_FOLDER + '/lib/angular-chart.js/dist/angular-chart.min.js',
 	DEST_FOLDER + '/js/languages.js',
 	DEST_FOLDER + '/js/functions.js',
 	DEST_FOLDER + '/js/dao.js',
-	DEST_FOLDER + '/lib/angular/angular.min.js',
 	DEST_FOLDER + '/js/app.js',
 	DEST_FOLDER + '/js/controllers.js',
 	DEST_FOLDER + '/js/filters.js'
-
 ];
 
 gulp.task('build-html-with-inject', [ 'build-html' ], function() {

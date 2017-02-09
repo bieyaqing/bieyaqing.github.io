@@ -22,7 +22,9 @@
 	"dependencies": {
 		"font-awesome": "*",
 		"moment": "*",
-		"angular": "*"
+		"angular": "*",
+		"chart.js": "*",
+		"angular-chart.js": "*"
 	},
 	"devDependencies": {
 		"gulp": "^3.9.1",
