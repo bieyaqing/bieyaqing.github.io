@@ -6,9 +6,12 @@ angular.module('app.controllers', [])
 	}, 500);
 })
 
+.controller('HomeCtrl', function($scope) {
+	console.log("Home Controller");
+})
+
 .controller('SettingsCtrl', function($rootScope, $scope) {
 	console.log("Settings Controller");
-
 	$scope.param = {
 		option: {
 			language: DATA_IO.getLanguage(),

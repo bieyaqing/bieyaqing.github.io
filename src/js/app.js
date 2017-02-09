@@ -22,11 +22,11 @@ angular.module('YQHOME', ['app.controllers', 'app.filters'])
 				title: "", link: "page-settings", is_sm: true
 			}],
 		sub_menu: [{
-				title: "", link: "", icon: "fa-github"
+				title: "", link: "https://github.com/bieyaqing", icon: "fa-github"
 			}, {
-				title: "", link: "", icon: "fa-linkedin"
+				title: "", link: "https://www.linkedin.com/in/yaqing-bie-59464156/", icon: "fa-linkedin"
 			}, {
-				title: "", link: "", icon: "fa-facebook"
+				title: "", link: "https://www.facebook.com/bie.yaqing", icon: "fa-facebook"
 			}],
 		pages: [{
 				id: "page-home", url: "templates/home.html"

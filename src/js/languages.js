@@ -12,6 +12,11 @@ let LAN_EN = {
 	"github": "Github",
 	"linkedin": "LinkedIn",
 	"facebook": "Facebook",
+	// home page
+	"a_xxx_geek": "axxxgeek",
+	"a_xxx_geek_desc": "A xxx geek is a person who is extremely addictive at more than three subjects, the owner of this site extreamly like technology, design and one more...",
+	"yq_s_stacks": "bie yaqing's stacks",
+	"yq_s_stacks_desc": "based on Ilya Kostin's stacked navigation",
 	// settings page
 	"settings_desc": "Set your preferred language and theme.",
 	"language": "language",
