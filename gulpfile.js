@@ -106,6 +106,7 @@ let INJECT_SRC = [
 	DEST_FOLDER + '/lib/moment/min/moment.min.js',
 	DEST_FOLDER + '/js/languages.js',
 	DEST_FOLDER + '/js/functions.js',
+	DEST_FOLDER + '/js/dao.js',
 	DEST_FOLDER + '/lib/angular/angular.min.js',
 	DEST_FOLDER + '/js/app.js',
 	DEST_FOLDER + '/js/controllers.js',

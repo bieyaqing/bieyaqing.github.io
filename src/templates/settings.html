@@ -1,10 +1,33 @@
 <div ng-controller="SettingsCtrl">
 	<header class="bp-header cf">
-		<h1 class="bp-header__title">Blog &amp; News</h1>
-		<p class="bp-header__desc">Based on Ilya Kostin's Dribbble shot <a href="https://dribbble.com/shots/2286042-Stacked-navigation">Stacked navigation</a></p>
-		<p class="info">
-			"The question is not, 'Can they reason?' nor, 'Can they talk?' but rather, 'Can they suffer?" &mdash; Jeremy Bentham
-		</p>
+		<h1 class="bp-header__title" ng-bind="language.settings"></h1>
+		<p class="bp-header__desc" ng-bind="language.settings_desc"></p>
+		<form class="yq-form">
+			<div class="yq-form-group">
+				<label><font ng-bind="language.language|text_fmt:1"></font>:</label>
+				<div class="radio">
+					<input type="radio" name="language" ng-model="param.option.language" value="en" id="language-en">
+					<label for="language-en" ng-bind="language.english"></label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="language" ng-model="param.option.language" value="ch" id="language-ch">
+					<label for="language-ch" ng-bind="language.chinese"></label>
+				</div>
+			</div>
+			<div class="yq-form-group">
+				<label><font ng-bind="language.theme|text_fmt:1"></font>:</label>
+				<div class="radio">
+					<input type="radio" name="theme" ng-model="param.option.theme" value="dark" id="theme-dark">
+					<label for="theme-dark" ng-bind="language.dark|text_fmt:1"></label>
+				</div>
+				<div class="radio">
+					<input type="radio" name="theme" ng-model="param.option.theme" value="light" id="theme-light">
+					<label for="theme-light" ng-bind="language.light|text_fmt:1"></label>
+				</div>
+			</div>
+		</form>
 	</header>
-	<img class="poster" src="images/1.jpg" alt="img01" />
+	<div class="poster">
+		<i class="fa fa-cog fa-fw cog-icon"></i>
+	</div>
 </div>

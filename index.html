@@ -18,13 +18,13 @@
 	</head>
 	<body ng-app="YQHOME" ng-controller="AppCtrl">
 		<nav class="pages-nav">
-			<div ng-repeat="item in param.menu" class="pages-nav__item" ng-class="item.is_sm|is_css:'pages-nav__item--small'"><a class="link link--page" ng-class="item.is_sm|is_css:'link--faded'" ng-href="#{{item.link}}" ng-bind="item.title"></a></div>
+			<div ng-repeat="item in root.menu" class="pages-nav__item" ng-class="item.is_sm|is_css:'pages-nav__item--small'"><a class="link link--page" ng-class="item.is_sm|is_css:'link--faded'" ng-href="#{{item.link}}" ng-bind="item.title"></a></div>
 			<div class="pages-nav__item pages-nav__item--social">
-				<a ng-repeat="item in param.sub_menu" class="link link--social link--faded" ng-href="#/{{item.link}}"><i class="fa" ng-class="item.icon"></i><span class="text-hidden" ng-bind="item.title"></span></a>
+				<a ng-repeat="item in root.sub_menu" class="link link--social link--faded" ng-href="#/{{item.link}}"><i class="fa" ng-class="item.icon"></i><span class="text-hidden" ng-bind="item.title"></span></a>
 			</div>
 		</nav>
 		<div class="pages-stack">
-			<div ng-repeat="item in param.pages" class="page" id="{{item.id}}" ng-include="item.url"></div>
+			<div ng-repeat="item in root.pages" class="page" id="{{item.id}}" ng-include="item.url"></div>
 		</div>
 		<button class="menu-button"><span>Menu</span></button>
 		
@@ -34,6 +34,7 @@
 		<script src="/lib/moment/min/moment.min.js"></script>
 		<script src="/js/languages.js"></script>
 		<script src="/js/functions.js"></script>
+		<script src="/js/dao.js"></script>
 		<script src="/lib/angular/angular.min.js"></script>
 		<script src="/js/app.js"></script>
 		<script src="/js/controllers.js"></script>
