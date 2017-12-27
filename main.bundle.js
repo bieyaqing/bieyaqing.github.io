@@ -557,7 +557,7 @@ var JsTestPageComponent = (function () {
         };
         this.download = function () {
             var blob = new Blob([this.editor.text], { type: "application/javascript;charset=utf-8" });
-            Object(__WEBPACK_IMPORTED_MODULE_2_file_saver__["saveAs"])(blob, this.question.title + ".js");
+            Object(__WEBPACK_IMPORTED_MODULE_2_file_saver__["saveAs"])(blob, (this.question ? this.question.title : "js_test") + ".js");
         };
         this.page = {
             height: window.innerHeight - 56,
