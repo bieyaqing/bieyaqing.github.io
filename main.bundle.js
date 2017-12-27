@@ -528,7 +528,9 @@ var JsTestPageComponent = (function () {
             var start = new Date();
             var resultKey = "jsTestResult";
             var copyCode = "let " + resultKey + " = '';\n" + this.editor.text;
-            copyCode = copyCode.replace(/console.log/g, resultKey + " += '<br>&#62;&nbsp;' + eval");
+            var myConsoleLog = "console.returnLog = function(arg1, arg2, arg3, arg4) { if(arg4) { console.log(arg1, arg2, arg3, arg4); return arg1 + ' ' + arg2 + ' ' + arg3 + ' ' + arg4; } else if(arg3) { console.log(arg1, arg2, arg3); return arg1 + ' ' + arg2 + ' ' + arg3; } else if(arg2) { console.log(arg1, arg2); return arg1 + ' ' + arg2; } else if(arg1) { console.log(arg1); return arg1; } }\n";
+            copyCode = copyCode.replace(/console.log/g, resultKey + " += '<br>&#62;&nbsp;' + console.returnLog");
+            copyCode = myConsoleLog + copyCode;
             copyCode += "\n" + resultKey + " += '<br>';\n" + resultKey + ";";
             // console.log(copyCode);
             this.log.text = eval(copyCode);
