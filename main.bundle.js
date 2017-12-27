@@ -461,7 +461,7 @@ var TestComponent = (function () {
 /***/ "../../../../../src/app/pages/js-test-page/js-test-page.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"js-test\">\n  <mat-grid-list cols=3 [rowHeight]=\"page.height\">\n    <mat-grid-tile colspan=\"2\">\n      <div ace-editor\n       [(text)]=\"editor.text\"\n       [mode]=\"editor.mode\"\n       [theme]=\"editor.theme\"\n       [options]=\"editor.options\"\n       [readOnly]=\"editor.readOnly\"\n       [autoUpdateContent]=\"editor.autoUpdateContent\"\n       [durationBeforeCallback]=\"editor.durationBeforeCallback\"\n       (textChanged)=\"onEditChange($event)\"\n       class=\"editor\" [ngStyle]=\"editor.style\"></div>\n    </mat-grid-tile>\n    <mat-grid-tile colspan=\"1\">\n      <div class=\"console\">\n        <div class=\"controller\">\n          <button mat-raised-button (click)=\"runScript()\">\n            <mat-icon>play_arrow</mat-icon>\n            Run\n          </button>\n          <button mat-raised-button (click)=\"download()\">\n            <mat-icon>file_download</mat-icon>\n            Save\n          </button>\n        </div>\n        <div class=\"log\" [ngStyle]=\"log.style\">\n          <div class=\"text\" [innerHTML]=\"log.text\"></div>\n          <div class=\"result\" [innerHTML]=\"log.result\"></div>\n          <div class=\"duration\">\n            duration:\n            {{ log.duration }}\n            ms\n          </div>\n        </div>\n        <hr class=\"hr\">\n        <div class=\"question\">\n          <app-question [question]=\"question\"></app-question>\n        </div>\n      </div>\n    </mat-grid-tile>\n  </mat-grid-list>\n</div>\n"
+module.exports = "<div class=\"js-test\">\n  <mat-grid-list cols=3 [rowHeight]=\"page.height\">\n    <mat-grid-tile colspan=\"2\">\n      <div ace-editor\n       [(text)]=\"editor.text\"\n       [mode]=\"editor.mode\"\n       [theme]=\"editor.theme\"\n       [options]=\"editor.options\"\n       [readOnly]=\"editor.readOnly\"\n       [autoUpdateContent]=\"editor.autoUpdateContent\"\n       [durationBeforeCallback]=\"editor.durationBeforeCallback\"\n       (textChanged)=\"onEditChange($event)\"\n       class=\"editor\" [ngStyle]=\"editor.style\"></div>\n    </mat-grid-tile>\n    <mat-grid-tile colspan=\"1\">\n      <div class=\"console\">\n        <div class=\"controller\">\n          <button mat-raised-button (click)=\"runScript()\">\n            <mat-icon>play_arrow</mat-icon>\n            Run\n          </button>\n          <button mat-raised-button (click)=\"download()\">\n            <mat-icon>file_download</mat-icon>\n            Save\n          </button>\n          <button mat-raised-button (click)=\"clearCode()\">\n            <mat-icon>format_color_reset</mat-icon>\n            Reset\n          </button>\n        </div>\n        <div class=\"log\" [ngStyle]=\"log.style\">\n          <div class=\"text\" [innerHTML]=\"log.text\"></div>\n          <div class=\"result\" [innerHTML]=\"log.result\"></div>\n          <div class=\"duration\">\n            duration:\n            {{ log.duration }}\n            ms\n          </div>\n        </div>\n        <hr class=\"hr\">\n        <div class=\"question\">\n          <app-question [question]=\"question\"></app-question>\n        </div>\n      </div>\n    </mat-grid-tile>\n  </mat-grid-list>\n</div>\n"
 
 /***/ }),
 
@@ -510,6 +510,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var JsTestPageComponent = (function () {
     function JsTestPageComponent(route, questionService) {
+        var _this = this;
         this.route = route;
         this.questionService = questionService;
         this.loadQuestion = function (title) {
@@ -520,8 +521,22 @@ var JsTestPageComponent = (function () {
                 });
             }
         };
+        this.saveCode = function (code) {
+            localStorage.setItem(this.page.storeKey, code);
+        };
+        this.loadCode = function (success) {
+            var code = localStorage.getItem(this.page.storeKey);
+            if (code) {
+                success(code);
+            }
+        };
+        this.clearCode = function () {
+            localStorage.removeItem(this.page.storeKey);
+            this.editor.text = __WEBPACK_IMPORTED_MODULE_3__resources_codes__["a" /* Codes */].DEFAULT;
+        };
         this.onEditChange = function (event) {
-            console.log(event);
+            // console.log(event);
+            this.saveCode(event);
         };
         this.runScript = function () {
             // prepare return console.log
@@ -545,7 +560,8 @@ var JsTestPageComponent = (function () {
             Object(__WEBPACK_IMPORTED_MODULE_2_file_saver__["saveAs"])(blob, this.question.title + ".js");
         };
         this.page = {
-            height: window.innerHeight - 56
+            height: window.innerHeight - 56,
+            storeKey: "JS_TEST_TMP"
         };
         this.editor = {
             text: __WEBPACK_IMPORTED_MODULE_3__resources_codes__["a" /* Codes */].DEFAULT,
@@ -559,6 +575,9 @@ var JsTestPageComponent = (function () {
                 "min-height.px": this.page.height
             }
         };
+        this.loadCode(function (code) {
+            _this.editor.text = code;
+        });
         this.log = {
             text: "",
             result: "",
