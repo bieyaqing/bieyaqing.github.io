@@ -180,6 +180,9 @@ var appRoutes = [{
     }, {
         path: 'js_test/:title',
         component: __WEBPACK_IMPORTED_MODULE_11__pages_js_test_page_js_test_page_component__["a" /* JsTestPageComponent */]
+    }, {
+        path: '**',
+        component: __WEBPACK_IMPORTED_MODULE_11__pages_js_test_page_js_test_page_component__["a" /* JsTestPageComponent */]
     }];
 var AppModule = (function () {
     function AppModule() {
