@@ -959,25 +959,25 @@ var Questions = (function () {
                     description: "You have a string s that consists of English letters, punctuation marks, whitespace characters, and brackets. It is guaranteed that the parentheses in s form a regular bracket sequence. Your task is to reverse the strings contained in each pair of matching parentheses, starting from the innermost pair. The results string should not contain any parentheses.",
                     hint: "REVERSEPARENTHESES",
                     tests: [{
-                            input: "s: \"a(bc)de\"",
+                            input: "\"a(bc)de\"",
                             output: "\"acbde\""
                         }, {
-                            input: "s: \"a(bcdefghijkl(mno)p)q\"",
+                            input: "\"a(bcdefghijkl(mno)p)q\"",
                             output: "\"apmnolkjihgfedcbq\""
                         }, {
-                            input: "s: \"co(de(fight)s)\"",
+                            input: "\"co(de(fight)s)\"",
                             output: "\"cosfighted\""
                         }, {
-                            input: "s: \"Code(Cha(lle)nge)\"",
+                            input: "\"Code(Cha(lle)nge)\"",
                             output: "\"CodeegnlleahC\""
                         }, {
-                            input: "s: \"Where are the parentheses?\"",
+                            input: "\"Where are the parentheses?\"",
                             output: "\"Where are the parentheses?\""
                         }, {
-                            input: "s: \"abc(cba)ab(bac)c\"",
+                            input: "\"abc(cba)ab(bac)c\"",
                             output: "\"abcabcabcabc\""
                         }, {
-                            input: "s: \"The ((quick (brown) (fox) jumps over the lazy) dog)\"",
+                            input: "\"The ((quick (brown) (fox) jumps over the lazy) dog)\"",
                             output: "\"The god quick nworb xof jumps over the lazy\""
                         }],
                     requirement: "[input] string s / [output] string",
