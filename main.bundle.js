@@ -539,19 +539,20 @@ var JsTestPageComponent = (function () {
             this.saveCode(event);
         };
         this.runScript = function () {
-            // prepare return console.log
+            var _this = this;
+            this.log.text = "";
+            this.log.result = "";
             var start = new Date();
-            var resultKey = "jsTestResult";
-            var copyCode = "let " + resultKey + " = '';\n" + this.editor.text;
-            var myConsoleLog = "console.returnLog = function(arg1, arg2, arg3, arg4) { if(arg4) { console.log(arg1, arg2, arg3, arg4); return arg1 + ' ' + arg2 + ' ' + arg3 + ' ' + arg4; } else if(arg3) { console.log(arg1, arg2, arg3); return arg1 + ' ' + arg2 + ' ' + arg3; } else if(arg2) { console.log(arg1, arg2); return arg1 + ' ' + arg2; } else if(arg1) { console.log(arg1); return arg1; } }\n";
-            copyCode = copyCode.replace(/console.log/g, resultKey + " += '<br>&#62;&nbsp;' + console.returnLog");
+            var copyCode = this.editor.text;
+            // prepare return console.log
+            var myConsoleLog = "console.returnLog = function(callback, arg1, arg2, arg3, arg4) { if(arg4) { console.log(arg1, arg2, arg3, arg4); callback(arg1 + ' ' + arg2 + ' ' + arg3 + ' ' + arg4); } else if(arg3) { console.log(arg1, arg2, arg3); callback(arg1 + ' ' + arg2 + ' ' + arg3); } else if(arg2) { console.log(arg1, arg2); callback(arg1 + ' ' + arg2); } else if(arg1) { console.log(arg1); callback(arg1); } }\n";
+            copyCode = copyCode.replace(/console.log\(/g, "console.returnLog(callback, ");
             copyCode = myConsoleLog + copyCode;
-            copyCode += "\n" + resultKey + " += '<br>';\n" + resultKey + ";";
-            // console.log(copyCode);
-            this.log.text = eval(copyCode);
-            // console.log("eval", this.log.text);
-            this.log.result = "&#62;&#62;&nbsp;" + eval(this.editor.text);
-            // console.log("eval", this.log.result);
+            console.log(copyCode);
+            var nf = new Function("cb", copyCode);
+            this.log.result = "&#62;&#62;&nbsp;" + nf(function (log) {
+                _this.log.text += "&#62;&nbsp;" + log + "<br>";
+            });
             var end = new Date();
             this.log.duration = end.getTime() - start.getTime();
         };
@@ -617,18 +618,53 @@ var JsTestPageComponent = (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Codes; });
-var defaultCode = "var JS_TEST = (function() {\n    var app = {};\n\n    app.run = function() {\n        // Write & Return your javascript code here!\n    };\n\n    return app;\n})();\n\nJS_TEST.run();";
-var isLuckyCode = "var JS_TEST = (function() {\n    var app = {};\n\n    app.run = function() {\n        // The answer is here!\n        return isLucky(134008);\n    };\n\n    function isLucky(n) {\n        var nStr = \"\" + n\n        var firstHalf = 0\n        var secondHalf = 0\n        for(var i = 0; i < nStr.length / 2; i ++) {\n            firstHalf += Number(nStr[i])\n            secondHalf += Number(nStr[nStr.length / 2 + i])\n        }\n        return firstHalf == secondHalf\n    }\n\n    return app;\n})();\n\nJS_TEST.run();";
-var adjacentElementsProductCode = "var JS_TEST = (function() {\n    var app = {};\n\n    app.run = function() {\n        // The answer is here!\n        return adjacentElementsProduct([4, 1, 2, 3, 1, 5]);\n    };\n\n    function adjacentElementsProduct(inputArray) {\n        var max = -Infinity\n        for (var i = 0; i < inputArray.length - 1; i ++) {\n            var prod = (inputArray[i] * inputArray[i+1])\n            if (max < prod) {\n                max = prod\n            }\n        }\n        return max\n    }\n\n    return app;\n})();\n\nJS_TEST.run();";
-var matrixElementsSumCode = "var JS_TEST = (function() {\n    var app = {};\n\n    app.run = function() {\n        // The answer is here!\n        return matrixElementsSum([[1,1,1,0],[0,5,0,1],[2,1,3,10]]);\n    };\n\n    function matrixElementsSum(matrix) {\n        var result = 0\n        for(var o in matrix) {\n            for(var p in matrix[o]){\n                if(matrix[o][p] == 0) {\n                    for(var i = matrix.length - 1; i > Number(o); i --) {\n                        matrix[i][p] = 0\n                    }\n                } else {\n                    result += matrix[o][p]\n                }\n            }\n        }\n        return result\n    }\n\n    return app;\n})();\n\nJS_TEST.run();";
-var reverseParenthesesCode = "var JS_TEST = (function() {\n    var app = {};\n\n    app.run = function() {\n        // Write & Return your javascript code here!\n        return reverseParentheses(\"a(bcdefghijkl(mno)p)q\");\n    };\n\n    function reverseParentheses(s) {\n        while(s.indexOf(\"(\") != -1) {\n            var openIdx = -1\n            var closeIdx = -1\n            var check = 0\n            for(var o in s) {\n                var cha = s[o]\n                if(cha == \"(\") {\n                    if(openIdx == -1) {\n                        openIdx = Number(o)\n                    }\n                    check = check + 1\n                }\n                if(cha == \")\") {\n                    check = check - 1\n                    if(check == 0) {\n                        closeIdx = Number(o)\n                        break;\n                    }\n                }\n            }\n            var content = s.substring(openIdx + 1, closeIdx);\n            content = content.split(\"\").reverse().join(\"\");\n            content = content.replace(/\\(/g, \"_\");\n            content = content.replace(/\\)/g, \"(\");\n            content = content.replace(/_/g, \")\");\n            var beforeContent = s.substring(0, openIdx);\n            var afterContent = s.substring(closeIdx + 1);\n            s = beforeContent + content + afterContent;\n        }\n        return s;\n    }\n\n    return app;\n})();\n\nJS_TEST.run();";
-var stringsRearrangementCode = "var JS_TEST = (function() {\n    var app = {};\n\n    app.run = function() {\n        // The answer is here!\n        return stringsRearrangement([\"abc\", \"abx\", \"axx\", \"abx\", \"abc\"]);\n    };\n\n    function stringsRearrangement(inputArray) {\n        var b = permutations(inputArray);\n        var e = [];\n\n        for (var c = 0; c < b.length; c++) {\n            e[c] = true;\n            for (var d = 1; d < b[c].length; d++)\n                if (!areDiffBy1Char(b[c][d - 1], b[c][d])) {\n                    e[c] = false;\n                    continue;\n                }\n            if (e[c] === true)\n                return true\n        }\n        return false;\n    }\n\n    function permutations(arr) {\n        var arrangements = [];\n        for (var i = 0; i < arr.length; i++) {\n            var other_than_i = permutations(arr.slice(0, i).concat(arr.slice(i + 1)));\n            if (other_than_i.length === 0)\n                arrangements.push([arr[i]]);\n            else\n                for (var j = 0; j < other_than_i.length; j++)\n                    arrangements.push([arr[i]].concat(other_than_i[j]));\n        }\n        return arrangements;\n    }\n\n    function areDiffBy1Char(x, y) {\n        var w = 0;\n        for (var z = 0; z < x.length; z++)\n            if (x.charAt(z) === y.charAt(z))\n                w++;\n        if (w === y.length - 1)\n            return true;\n        return false;\n    }\n\n    return app;\n})();\n\nJS_TEST.run();";
+var defaultCode = "var JS_TEST = (function() {\n    var app = {};\n    let callback;\n    app.run = function(cb) {\n        callback = cb;\n        // Write & Return your javascript code here!\n    };\n\n    return app;\n})();\n\nreturn JS_TEST.run(cb);";
+var addCode = "var JS_TEST = (function() {\n    var app = {};\n    let callback;\n    app.run = function(cb) {\n        callback = cb;\n        // The answer is here!\n        return add(-145, 77);\n    };\n\n    function add(p1, p2) {\n        return p1 + p2;\n    }\n\n    return app;\n})();\n\nreturn JS_TEST.run(cb);";
+var powerCode = "var JS_TEST = (function() {\n    var app = {};\n    let callback;\n    app.run = function(cb) {\n        callback = cb;\n        // The answer is here!\n        return power(2, 3);\n    };\n\n    function power(x, n) {\n        return Math.pow(x, n);\n    }\n\n    return app;\n})();\n\nreturn JS_TEST.run(cb);";
+var CounterIncrementCode = "var JS_TEST = (function() {\n    var app = {};\n    let callback;\n    app.run = function(cb) {\n        callback = cb;\n        // The answer is here!\n        counterIncrement(10, 1, 2);\n    };\n\n    function counterIncrement(x, n, s) {\n        setInterval(() => {\n            x += n;\n            console.log(x);\n        }, s * 1000);\n    }\n\n    return app;\n})();\n\nreturn JS_TEST.run(cb);";
+var checkPalindromeCode = "var JS_TEST = (function() {\n    var app = {};\n    let callback;\n    app.run = function(cb) {\n        callback = cb;\n        // The answer is here!\n        return checkPalindrome(\"hlbeeykoqqqqokyeeblh\");\n    };\n\n    function checkPalindrome(inputString) {\n        var size = inputString.length\n        var result = true\n        for(var i = 0; i < size/2; i++){\n            if(inputString[i] != inputString[size - i - 1]) {\n                result = false\n                break\n            }\n        }\n        return result\n    }\n\n    return app;\n})();\n\nreturn JS_TEST.run(cb);";
+var isLuckyCode = "var JS_TEST = (function() {\n    var app = {};\n    let callback;\n    app.run = function(cb) {\n        callback = cb;\n        // The answer is here!\n        return isLucky(134008);\n    };\n\n    function isLucky(n) {\n        var nStr = \"\" + n\n        var firstHalf = 0\n        var secondHalf = 0\n        for(var i = 0; i < nStr.length / 2; i ++) {\n            firstHalf += Number(nStr[i])\n            secondHalf += Number(nStr[nStr.length / 2 + i])\n        }\n        return firstHalf == secondHalf\n    }\n\n    return app;\n})();\n\nreturn JS_TEST.run(cb);";
+var counterCallbackCode = "var JS_TEST = (function() {\n    var app = {};\n    let callback;\n    app.run = function(cb) {\n        callback = cb;\n        // The answer is here!\n        counterCallback(0.5);\n    };\n\n    function counterCallback(s) {\n        setInterval(callbackFun, s * 1000);\n    }\n\n    function callbackFun() {\n      console.log('new logic');\n    }\n\n    return app;\n})();\n\nreturn JS_TEST.run(cb);";
+var changeButtonColorCode = "var JS_TEST = (function() {\n    var app = {};\n    let callback;\n    app.run = function(cb) {\n        callback = cb;\n        // The answer is here!\n        changeButtonColor(\"#ff99cc\");\n    };\n\n    function changeButtonColor(color) {\n        let buttons = document.getElementsByTagName(\"button\");\n        for(let i = 0; i < buttons.length; i++) {\n            let b = buttons[i];\n            b.style.backgroundColor = color;\n        }\n    }\n\n    return app;\n})();\n\nreturn JS_TEST.run(cb);";
+var adjacentElementsProductCode = "var JS_TEST = (function() {\n    var app = {};\n    let callback;\n    app.run = function(cb) {\n        callback = cb;\n        // The answer is here!\n        return adjacentElementsProduct([4, 1, 2, 3, 1, 5]);\n    };\n\n    function adjacentElementsProduct(inputArray) {\n        var max = -Infinity\n        for (var i = 0; i < inputArray.length - 1; i ++) {\n            var prod = (inputArray[i] * inputArray[i+1])\n            if (max < prod) {\n                max = prod\n            }\n        }\n        return max\n    }\n\n    return app;\n})();\n\nreturn JS_TEST.run(cb);";
+var almostIncreasingSequenceCode = "var JS_TEST = (function() {\n    var app = {};\n    let callback;\n    app.run = function(cb) {\n        callback = cb;\n        // The answer is here!\n        return almostIncreasingSequence([1, 2, 3, 4, 99, 5, 6]);\n    };\n\n    function almostIncreasingSequence(sequence) {\n        var removeCount = 0\n        for(var i = 0; i < sequence.length - 1; i ++) {\n            if(sequence[i] >= sequence[i + 1]) {\n                removeCount += 1\n                var preCheck = true\n                var nexCheck = true\n                if(sequence[i - 1]) {\n                    if(sequence[i - 1] >= sequence[i + 1]) {\n                        preCheck = false\n                    }\n                }\n                if(sequence[i + 2]) {\n                    if(sequence[i] >= sequence[i + 2]) {\n                        nexCheck = false\n                    }\n                }\n                if(!preCheck && !nexCheck) {\n                    removeCount += 1\n                }\n            }\n            if(removeCount > 1) {\n                return false\n            }\n        }\n        return true\n    }\n\n    return app;\n})();\n\nreturn JS_TEST.run(cb);";
+var matrixElementsSumCode = "var JS_TEST = (function() {\n    var app = {};\n    let callback;\n    app.run = function(cb) {\n        callback = cb;\n        // The answer is here!\n        return matrixElementsSum([[1,1,1,0],[0,5,0,1],[2,1,3,10]]);\n    };\n\n    function matrixElementsSum(matrix) {\n        var result = 0\n        for(var o in matrix) {\n            for(var p in matrix[o]){\n                if(matrix[o][p] == 0) {\n                    for(var i = matrix.length - 1; i > Number(o); i --) {\n                        matrix[i][p] = 0\n                    }\n                } else {\n                    result += matrix[o][p]\n                }\n            }\n        }\n        return result\n    }\n\n    return app;\n})();\n\nreturn JS_TEST.run(cb);";
+var reverseParenthesesCode = "var JS_TEST = (function() {\n    var app = {};\n    let callback;\n    app.run = function(cb) {\n        callback = cb;\n        // The answer is here!\n        return reverseParentheses(\"a(bcdefghijkl(mno)p)q\");\n    };\n\n    function reverseParentheses(s) {\n        while(s.indexOf(\"(\") != -1) {\n            var openIdx = -1\n            var closeIdx = -1\n            var check = 0\n            for(var o in s) {\n                var cha = s[o]\n                if(cha == \"(\") {\n                    if(openIdx == -1) {\n                        openIdx = Number(o)\n                    }\n                    check = check + 1\n                }\n                if(cha == \")\") {\n                    check = check - 1\n                    if(check == 0) {\n                        closeIdx = Number(o)\n                        break;\n                    }\n                }\n            }\n            var content = s.substring(openIdx + 1, closeIdx);\n            content = content.split(\"\").reverse().join(\"\");\n            content = content.replace(/\\(/g, \"_\");\n            content = content.replace(/\\)/g, \"(\");\n            content = content.replace(/_/g, \")\");\n            var beforeContent = s.substring(0, openIdx);\n            var afterContent = s.substring(closeIdx + 1);\n            s = beforeContent + content + afterContent;\n        }\n        return s;\n    }\n\n    return app;\n})();\n\nreturn JS_TEST.run(cb);";
+var stringsRearrangementCode = "var JS_TEST = (function() {\n    var app = {};\n    let callback;\n    app.run = function(cb) {\n        callback = cb;\n        // The answer is here!\n        return stringsRearrangement([\"abc\", \"abx\", \"axx\", \"abx\", \"abc\"]);\n    };\n\n    function stringsRearrangement(inputArray) {\n        var b = permutations(inputArray);\n        var e = [];\n\n        for (var c = 0; c < b.length; c++) {\n            e[c] = true;\n            for (var d = 1; d < b[c].length; d++) {\n                if (!areDiffBy1Char(b[c][d - 1], b[c][d])) {\n                    e[c] = false;\n                    continue;\n                }\n            }\n            if (e[c] === true) {\n                return true\n            }\n        }\n        return false;\n    }\n\n    function permutations(arr) {\n        var arrangements = [];\n        for (var i = 0; i < arr.length; i++) {\n            var other_than_i = permutations(arr.slice(0, i).concat(arr.slice(i + 1)));\n            if(other_than_i.length === 0) {\n                arrangements.push([arr[i]]);\n            }\n            else {\n                for(var j = 0; j < other_than_i.length; j++) {\n                    arrangements.push([arr[i]].concat(other_than_i[j]));\n                }\n            }\n        }\n        return arrangements;\n    }\n\n    function areDiffBy1Char(x, y) {\n        var w = 0;\n        for(var z = 0; z < x.length; z++) {\n            if(x.charAt(z) === y.charAt(z)) {\n                w++;\n            }\n        }\n        if(w === y.length - 1) {\n            return true;\n        }\n        return false;\n    }\n\n    return app;\n})();\n\nreturn JS_TEST.run(cb);";
 var Codes = (function () {
     function Codes() {
     }
     Object.defineProperty(Codes, "DEFAULT", {
         get: function () {
             return defaultCode;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Codes, "ADD", {
+        get: function () {
+            return addCode;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Codes, "POWER", {
+        get: function () {
+            return powerCode;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Codes, "COUNTERINCREMENT", {
+        get: function () {
+            return CounterIncrementCode;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Codes, "CHECKPALINDROME", {
+        get: function () {
+            return checkPalindromeCode;
         },
         enumerable: true,
         configurable: true
@@ -640,9 +676,30 @@ var Codes = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Codes, "COUNTERCALLBACK", {
+        get: function () {
+            return counterCallbackCode;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Codes, "CHANGEBUTTONCOLOR", {
+        get: function () {
+            return changeButtonColorCode;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Codes, "ADJACENTELEMENTSPRODUCT", {
         get: function () {
             return adjacentElementsProductCode;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Codes, "ALMOSTINCREASINGSEQUENCE", {
+        get: function () {
+            return almostIncreasingSequenceCode;
         },
         enumerable: true,
         configurable: true
@@ -686,6 +743,83 @@ var Questions = (function () {
     Object.defineProperty(Questions, "ALL", {
         get: function () {
             return [{
+                    title: "Add",
+                    description: "Write a function that returns the sum of two numbers.",
+                    hint: "ADD",
+                    tests: [{
+                            input: "-145, 77",
+                            output: "-68"
+                        }, {
+                            input: "20, 564",
+                            output: "584"
+                        }, {
+                            input: "52 90",
+                            output: "142"
+                        }],
+                    requirement: "[input] integer p1 p2 / [output] integer",
+                    executionLimit: 4,
+                    difficulty: 0
+                }, {
+                    title: "Power",
+                    description: "Write a function that returns the x power of n.",
+                    hint: "POWER",
+                    tests: [{
+                            input: "2, 3",
+                            output: "8"
+                        }, {
+                            input: "3, 5",
+                            output: "243"
+                        }, {
+                            input: "7, 0",
+                            output: "1"
+                        }, {
+                            input: "67, -2",
+                            output: "0.00022276676319893073"
+                        }, {
+                            input: "13, -1",
+                            output: "0.07692307692307693"
+                        }],
+                    requirement: "[input] integer x n / [output] number",
+                    executionLimit: 4,
+                    difficulty: 0
+                }, {
+                    title: "Counter Increment",
+                    description: "Create a function increment the number value x by n in every s seconds. Console log value x in each iteration.",
+                    hint: "COUNTERINCREMENT",
+                    tests: [{
+                            input: "10, 1, 2",
+                            output: "undefined"
+                        }, {
+                            input: "12, 2, 3",
+                            output: "undefined"
+                        }, {
+                            input: "25, 3, 1",
+                            output: "undefined"
+                        }],
+                    requirement: "[input] integer x, n, s / [output] void",
+                    executionLimit: 4,
+                    difficulty: 1
+                }, {
+                    title: "Check Palindrome",
+                    description: "Given the string, check if it is a palindrome.",
+                    hint: "CHECKPALINDROME",
+                    tests: [{
+                            input: "\"aabaa\"",
+                            output: "true"
+                        }, {
+                            input: "\"abac\"",
+                            output: "false"
+                        }, {
+                            input: "\"zzzazzazz\"",
+                            output: "false"
+                        }, {
+                            input: "\"hlbeeykoqqqqokyeeblh\"",
+                            output: "true"
+                        }],
+                    requirement: "[input] string inputString / [output] boolean",
+                    executionLimit: 4,
+                    difficulty: 1
+                }, {
                     title: "Is Lucky",
                     description: "Ticket numbers usually consist of an even number of digits. A ticket number is considered lucky if the sum of the first half of the digits is equal to the sum of the second half. Given a ticket number n, determine if it's lucky or not.",
                     hint: "ISLUCKY",
@@ -712,6 +846,43 @@ var Questions = (function () {
                     executionLimit: 4,
                     difficulty: 1
                 }, {
+                    title: "Counter Callback",
+                    description: "Based on Counter Increment function, use a callback function replace the incremental logic. Replaced logic: console.log('new logic');",
+                    hint: "COUNTERCALLBACK",
+                    tests: [{
+                            input: "1",
+                            output: "undefined"
+                        }, {
+                            input: "0.5",
+                            output: "undefined"
+                        }],
+                    requirement: "[input] integer s / [output] void",
+                    executionLimit: 4,
+                    difficulty: 1
+                }, {
+                    title: "Change Button Color",
+                    description: "Use javascript code change all the buttons' color in this page!",
+                    hint: "CHANGEBUTTONCOLOR",
+                    tests: [{
+                            input: "\"CornflowerBlue\"",
+                            output: "undefined"
+                        }, {
+                            input: "\"Gold\"",
+                            output: "undefined"
+                        }, {
+                            input: "\"OrangeRed\"",
+                            output: "undefined"
+                        }, {
+                            input: "\"#ff99cc\"",
+                            output: "undefined"
+                        }, {
+                            input: "\"#9999ff\"",
+                            output: "undefined"
+                        }],
+                    requirement: "[input] string color / [output] void",
+                    executionLimit: 4,
+                    difficulty: 2
+                }, {
                     title: "Adjacent Elements Product",
                     description: "Given an array of integers, find the pair of adjacent elements that has the largest product and return that product.",
                     hint: "ADJACENTELEMENTSPRODUCT",
@@ -735,6 +906,32 @@ var Questions = (function () {
                             output: "6"
                         }],
                     requirement: "[input] array.integer inputArray / [output] integer",
+                    executionLimit: 4,
+                    difficulty: 2
+                }, {
+                    title: "Almost Increasing Sequence",
+                    description: "Given a sequence of integers as an array, determine whether it is possible to obtain a strictly increasing sequence by removing no more than one element from the array.",
+                    hint: "ALMOSTINCREASINGSEQUENCE",
+                    tests: [{
+                            input: "[1, 3, 2, 1]",
+                            output: "false"
+                        }, {
+                            input: "[1, 3, 2]",
+                            output: "true"
+                        }, {
+                            input: "[1, 2, 1, 2]",
+                            output: "false"
+                        }, {
+                            input: "[1, 4, 10, 4, 2]",
+                            output: "false"
+                        }, {
+                            input: "[1, 2, 3, 4, 99, 5, 6]",
+                            output: "true"
+                        }, {
+                            input: "[123, -17, -5, 1, 2, 3, 12, 43, 45]",
+                            output: "true"
+                        }],
+                    requirement: "[input] array.integer sequence / [output] boolean",
                     executionLimit: 4,
                     difficulty: 2
                 }, {
