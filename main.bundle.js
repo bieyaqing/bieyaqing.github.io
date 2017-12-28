@@ -1040,8 +1040,8 @@ var Questions = (function () {
                             input: "\"C8\", \"H8\"",
                             output: "false"
                         }, {
-                            input: "\"D2\", \"D2\"",
-                            output: "true"
+                            input: "\"A9\", \"B6\"",
+                            output: "false"
                         }, {
                             input: "\"A2\", \"A5\"",
                             output: "false"
