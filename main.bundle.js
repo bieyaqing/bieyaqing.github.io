@@ -533,6 +533,8 @@ var JsTestPageComponent = (function () {
         this.clearCode = function () {
             localStorage.removeItem(this.page.storeKey);
             this.editor.text = __WEBPACK_IMPORTED_MODULE_3__resources_codes__["a" /* Codes */].DEFAULT;
+            this.log.text = "";
+            this.log.result = "";
         };
         this.onEditChange = function (event) {
             // console.log(event);
