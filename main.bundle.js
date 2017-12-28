@@ -548,7 +548,7 @@ var JsTestPageComponent = (function () {
             var myConsoleLog = "console.returnLog = function(callback, arg1, arg2, arg3, arg4) { if(arg4) { console.log(arg1, arg2, arg3, arg4); callback(arg1 + ' ' + arg2 + ' ' + arg3 + ' ' + arg4); } else if(arg3) { console.log(arg1, arg2, arg3); callback(arg1 + ' ' + arg2 + ' ' + arg3); } else if(arg2) { console.log(arg1, arg2); callback(arg1 + ' ' + arg2); } else if(arg1) { console.log(arg1); callback(arg1); } }\n";
             copyCode = copyCode.replace(/console.log\(/g, "console.returnLog(callback, ");
             copyCode = myConsoleLog + copyCode;
-            console.log(copyCode);
+            // console.log(copyCode);
             var nf = new Function("cb", copyCode);
             this.log.result = "&#62;&#62;&nbsp;" + nf(function (log) {
                 _this.log.text += "&#62;&nbsp;" + log + "<br>";
