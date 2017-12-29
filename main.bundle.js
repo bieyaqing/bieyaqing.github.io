@@ -20,7 +20,7 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy re
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"exam\">\n  <mat-sidenav-container class=\"side-menu-container\" [ngStyle]=\"{'min-height.px':ui.window.height}\">\n    <mat-sidenav #sidemenu class=\"side-menu\">\n      <mat-toolbar class=\"tool-bar\" color=\"primary\">\n        <span>Questions</span>\n      </mat-toolbar>\n      <mat-nav-list>\n        <a mat-list-item class=\"side-menu-item\" [ngClass]=\"{'active':item.active}\" [routerLink]=\"item.link\" *ngFor=\"let item of menu; index as i;\" (click)=\"sidemenu.close();activeMenuItem(i);\">\n          <mat-icon>{{ item.icon }}</mat-icon>\n          &nbsp;\n          {{ item.title }}\n        </a>\n      </mat-nav-list>\n    </mat-sidenav>\n    <div class=\"main-content\">\n      <mat-toolbar class=\"tool-bar\" color=\"primary\">\n        <button mat-icon-button (click)=\"sidemenu.open()\">\n          <mat-icon>list</mat-icon>\n        </button>\n        <span class=\"title\">\n          {{ title }}\n        </span>\n        <span class=\"spacer\"></span>\n        <button mat-icon-button (click)=\"openHint()\">\n          <mat-icon>info_outline</mat-icon>\n        </button>\n      </mat-toolbar>\n      <router-outlet></router-outlet>\n    </div>\n  </mat-sidenav-container>\n  <div class=\"power-by\">\n    By - Bie Yaqing\n  </div>\n</div>\n"
+module.exports = "<div class=\"exam\">\n  <mat-sidenav-container class=\"side-menu-container\" [ngStyle]=\"{'min-height.px':ui.window.height}\">\n    <mat-sidenav #sidemenu class=\"side-menu\">\n      <mat-toolbar class=\"tool-bar\" color=\"primary\">\n        <span>Questions</span>\n      </mat-toolbar>\n      <mat-nav-list>\n        <a mat-list-item class=\"side-menu-item\" [ngClass]=\"{'active':item.active}\" [routerLink]=\"item.link\" *ngFor=\"let item of menu; index as i;\" (click)=\"sidemenu.close();activeMenuItem(i);\">\n          <mat-icon>{{ item.icon }}</mat-icon>\n          &nbsp;\n          {{ item.title }}\n        </a>\n      </mat-nav-list>\n    </mat-sidenav>\n    <div class=\"main-content\">\n      <mat-toolbar class=\"tool-bar\" color=\"primary\">\n        <button mat-icon-button (click)=\"sidemenu.open()\">\n          <mat-icon>list</mat-icon>\n        </button>\n        <span class=\"title\">\n          {{ title }}\n        </span>\n        <span class=\"spacer\"></span>\n        <mat-progress-spinner class=\"pass-spinner\" diameter=\"26\" mode=\"determinate\" [value]=\"passCode.wait\"></mat-progress-spinner>\n        <button mat-icon-button (click)=\"processPass()\">\n          {{ passCode.key >= 10 ? \"i\" : passCode.key }}\n        </button>\n      </mat-toolbar>\n      <router-outlet></router-outlet>\n    </div>\n  </mat-sidenav-container>\n  <div class=\"power-by\">\n    By - Bie Yaqing\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -32,7 +32,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".exam .side-menu-container .side-menu .tool-bar {\n  height: 56px; }\n\n.exam .side-menu-container .side-menu .side-menu-item {\n  font-size: 14px;\n  min-width: 240px; }\n  .exam .side-menu-container .side-menu .side-menu-item.active {\n    background-color: WhiteSmoke; }\n  .exam .side-menu-container .side-menu .side-menu-item md-icon {\n    font-size: 18px;\n    height: 18px; }\n\n.exam .side-menu-container .main-content .tool-bar {\n  height: 56px; }\n  .exam .side-menu-container .main-content .tool-bar .title {\n    margin-top: 2px;\n    font-size: 16px;\n    margin-left: 20px; }\n  .exam .side-menu-container .main-content .tool-bar .spacer {\n    -webkit-box-flex: 1;\n        -ms-flex: 1 1 auto;\n            flex: 1 1 auto; }\n\n.exam .power-by {\n  position: fixed;\n  bottom: 0px;\n  right: 0px;\n  z-index: 999;\n  padding: 10px;\n  color: rgba(0, 0, 0, 0.2); }\n", ""]);
+exports.push([module.i, ".exam .side-menu-container .side-menu .tool-bar {\n  height: 56px; }\n\n.exam .side-menu-container .side-menu .side-menu-item {\n  font-size: 14px;\n  min-width: 240px; }\n  .exam .side-menu-container .side-menu .side-menu-item.active {\n    background-color: WhiteSmoke; }\n  .exam .side-menu-container .side-menu .side-menu-item md-icon {\n    font-size: 18px;\n    height: 18px; }\n\n.exam .side-menu-container .main-content .tool-bar {\n  height: 56px; }\n  .exam .side-menu-container .main-content .tool-bar .title {\n    margin-top: 2px;\n    font-size: 16px;\n    margin-left: 20px; }\n  .exam .side-menu-container .main-content .tool-bar .spacer {\n    -webkit-box-flex: 1;\n        -ms-flex: 1 1 auto;\n            flex: 1 1 auto; }\n  .exam .side-menu-container .main-content .tool-bar .pass-spinner {\n    margin-right: -33px; }\n    .exam .side-menu-container .main-content .tool-bar .pass-spinner /deep/svg circle {\n      stroke: currentColor; }\n\n.exam .power-by {\n  position: fixed;\n  bottom: 0px;\n  right: 0px;\n  z-index: 999;\n  padding: 10px;\n  color: rgba(0, 0, 0, 0.2); }\n", ""]);
 
 // exports
 
@@ -92,16 +92,38 @@ var AppComponent = (function () {
                 }
             }
         };
-        this.openHint = function () {
-            this.hintHit += 1;
-            if (this.hintHit == 7) {
-                this.hintHit = 0;
-                console.log("openHint");
-                var dialogRef = this.dialog.open(__WEBPACK_IMPORTED_MODULE_3__components_hint_hint_component__["a" /* HintComponent */], {});
-                dialogRef.afterClosed().subscribe(function (result) {
-                    console.log('The dialog was closed');
-                });
+        this.processPass = function () {
+            var _this = this;
+            if (this.passCode.key > 0) {
+                this.passCode.key -= 1;
             }
+            if (this.passCode.interval) {
+                clearInterval(this.passCode.interval);
+                this.passCode.wait = 100;
+            }
+            this.passCode.interval = setInterval(function () {
+                _this.passCode.wait -= 10;
+                if (_this.passCode.wait <= -20) {
+                    _this.passCode.code += _this.passCode.key;
+                    clearInterval(_this.passCode.interval);
+                    _this.passCode.wait = 100;
+                    _this.passCode.key = 10;
+                    var codeLength = _this.passCode.code.length;
+                    if (codeLength >= 4) {
+                        if (_this.passCode.code.substring(codeLength - 4) == _this.passCode.password) {
+                            _this.openHint();
+                            _this.passCode.code = "";
+                        }
+                    }
+                }
+            }, 100);
+        };
+        this.openHint = function () {
+            console.log("openHint");
+            var dialogRef = this.dialog.open(__WEBPACK_IMPORTED_MODULE_3__components_hint_hint_component__["a" /* HintComponent */], {});
+            dialogRef.afterClosed().subscribe(function (result) {
+                console.log('The dialog was closed');
+            });
         };
         this.ui = {
             window: {
@@ -114,7 +136,13 @@ var AppComponent = (function () {
                 link: "/js_test",
                 active: false
             }];
-        this.hintHit = 0;
+        this.passCode = {
+            key: 10,
+            wait: 100,
+            code: "",
+            interval: null,
+            password: "7572"
+        };
         this.loadQuestions();
     }
     AppComponent = __decorate([
@@ -207,14 +235,15 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_router__["b" /* RouterModule */].forRoot(appRoutes, {}),
                 __WEBPACK_IMPORTED_MODULE_8_ng2_ace_editor__["a" /* AceEditorModule */],
-                __WEBPACK_IMPORTED_MODULE_7__angular_material__["i" /* MatSidenavModule */],
-                __WEBPACK_IMPORTED_MODULE_7__angular_material__["j" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_7__angular_material__["j" /* MatSidenavModule */],
+                __WEBPACK_IMPORTED_MODULE_7__angular_material__["k" /* MatToolbarModule */],
                 __WEBPACK_IMPORTED_MODULE_7__angular_material__["a" /* MatButtonModule */],
                 __WEBPACK_IMPORTED_MODULE_7__angular_material__["f" /* MatIconModule */],
                 __WEBPACK_IMPORTED_MODULE_7__angular_material__["h" /* MatListModule */],
                 __WEBPACK_IMPORTED_MODULE_7__angular_material__["e" /* MatGridListModule */],
                 __WEBPACK_IMPORTED_MODULE_7__angular_material__["c" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_7__angular_material__["g" /* MatInputModule */]
+                __WEBPACK_IMPORTED_MODULE_7__angular_material__["g" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_7__angular_material__["i" /* MatProgressSpinnerModule */]
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_9__services_question_question_service__["a" /* QuestionService */]
